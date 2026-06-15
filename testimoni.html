@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testimoni — Koki Batak</title>
+  <meta name="description" content="Ulasan dan testimoni pelanggan Koki Batak. Bagikan pengalaman Anda." />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body data-page="testimoni">
+  <header id="site-nav"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Testimoni</span>
+        <h1>Apa Kata Pelanggan Kami</h1>
+        <p>Kepuasan pelanggan adalah kebanggaan kami. Bagikan juga pengalaman Anda.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="testiGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section-sm" style="background:var(--c-surface-2)">
+      <div class="container container-narrow">
+        <div class="section-head">
+          <span class="eyebrow">Bagikan Pengalaman</span>
+          <h2>Tulis Testimoni Anda</h2>
+          <p>Testimoni akan tampil setelah ditinjau oleh tim kami.</p>
+        </div>
+        <form class="card" id="testiForm" novalidate>
+          <div class="form-grid">
+            <div class="field" data-field="name">
+              <label>Nama <span class="req">*</span></label>
+              <input type="text" name="name" placeholder="Nama Anda" required />
+              <span class="err-msg"></span>
+            </div>
+            <div class="field">
+              <label>Rating</label>
+              <div class="rating-input" role="radiogroup" aria-label="Beri rating">
+                <input type="radio" id="r5" name="rating" value="5" checked /><label for="r5" title="5 bintang">★</label>
+                <input type="radio" id="r4" name="rating" value="4" /><label for="r4" title="4 bintang">★</label>
+                <input type="radio" id="r3" name="rating" value="3" /><label for="r3" title="3 bintang">★</label>
+                <input type="radio" id="r2" name="rating" value="2" /><label for="r2" title="2 bintang">★</label>
+                <input type="radio" id="r1" name="rating" value="1" /><label for="r1" title="1 bintang">★</label>
+              </div>
+            </div>
+            <div class="field" data-field="message">
+              <label>Pesan <span class="req">*</span></label>
+              <textarea name="message" rows="4" placeholder="Ceritakan pengalaman Anda…" required></textarea>
+              <span class="err-msg"></span>
+            </div>
+            <div class="hp-field" aria-hidden="true">
+              <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-4" id="testiBtn">Kirim Testimoni</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/testimoni.js"></script>
+</body>
+</html>

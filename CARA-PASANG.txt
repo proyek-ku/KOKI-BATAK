@@ -1,0 +1,196 @@
+================================================================================
+                  CARA MEMASANG WEBSITE "KOKI BATAK"
+            Panduan lengkap untuk pemula (ikuti urut dari atas)
+================================================================================
+
+Website ini terdiri dari 3 bagian:
+  1. BACKEND  -> Google Sheet + Google Apps Script (database & API)
+  2. FRONTEND -> file HTML/CSS/JS (tampilan situs)
+  3. HOSTING  -> GitHub Pages (agar bisa diakses online, GRATIS)
+
+Yang perlu Anda siapkan:
+  - Akun Google (Gmail)            -> untuk Sheet, Apps Script, Drive
+  - Akun GitHub (github.com)       -> untuk meng-online-kan situs (gratis)
+  - Logo & foto (logo.png, dll.)   -> diletakkan di folder "assets"
+
+Perkiraan waktu: 20-30 menit.
+
+================================================================================
+ BAGIAN A — MEMBUAT BACKEND (GOOGLE)
+================================================================================
+
+LANGKAH 1. Buat database
+  - Buka:  https://sheets.new
+  - Ganti nama file (kiri atas) menjadi:  Koki Batak DB
+
+LANGKAH 2. Pasang kode backend
+  - Di Sheet tersebut, klik menu:  Extensions  ->  Apps Script
+  - Akan terbuka halaman editor kode. Hapus semua kode bawaan di sana.
+  - Buka file "gas/Code.gs" dari proyek ini, SALIN SELURUH ISINYA.
+  - Tempel (paste) ke editor Apps Script.
+  - Klik ikon Simpan (disket) atau tekan Ctrl+S.
+
+LANGKAH 3. Buat tabel otomatis
+  - Di bagian atas editor ada kotak pilihan nama fungsi.
+  - Pilih:  setupSpreadsheet  ->  klik tombol  Run (Jalankan).
+  - Akan muncul permintaan izin:
+        Review permissions  ->  pilih akun Google Anda  ->  Allow.
+  - Jika muncul "Google hasn't verified this app" (wajar, karena script ini
+    milik Anda sendiri):
+        klik  Advanced  ->  Go to (nama project) (unsafe)  ->  Allow.
+  - Cek Sheet Anda: kini sudah ada 7 tab (Packages, Orders, OrderItems,
+    Gallery, Testimonials, Settings, Counters). BERHASIL.
+
+LANGKAH 4. Akun admin (sudah OTOMATIS dibuat)
+  - Tidak perlu langkah khusus. setupSpreadsheet (Langkah 3) sudah otomatis
+    membuat 1 akun admin default:
+        Username : admin
+        Password : KokiBatak123
+  - PENTING: setelah berhasil login nanti, SEGERA ganti password lewat
+    menu "Profil" (pojok kanan atas panel admin).
+  - Admin lain bisa ditambahkan dari dalam panel (menu Kelola Admin, khusus Owner).
+  - (Opsional) Mau set password sendiri dari editor? Tambahkan di paling bawah
+    Code.gs:  function gantiPw(){ setAdminPassword('PasswordBaruAnda'); }
+    lalu pilih fungsi gantiPw -> Run sekali, kemudian hapus fungsinya.
+
+LANGKAH 5. (Opsional) Isi data contoh
+  - Agar situs tidak kosong saat pertama dibuka:
+        pilih fungsi  seedSampleData  ->  Run.
+  - Ini menambahkan beberapa contoh paket & 1 testimoni.
+
+LANGKAH 6. Deploy (menjadikannya API online)
+  - Klik tombol  Deploy  ->  New deployment.
+  - Klik ikon roda gigi (Select type)  ->  pilih  Web app.
+  - Isi:
+        Description     : (bebas, mis. "API Koki Batak")
+        Execute as      : Me  (akun Anda)
+        Who has access  : Anyone     <-- PENTING, harus "Anyone"
+  - Klik  Deploy  ->  Allow (jika diminta).
+  - SALIN "Web app URL" yang muncul (berakhiran /exec).
+        Contoh: https://script.google.com/macros/s/AKfycb....../exec
+  - Simpan URL ini. Akan dipakai di Langkah 7.
+
+================================================================================
+ BAGIAN B — MENGHUBUNGKAN FRONTEND KE API
+================================================================================
+
+LANGKAH 7. Masukkan URL API
+  - Buka file:  js/config.js
+  - Ganti tulisan "GANTI_DENGAN_URL_WEB_APP_GAS" dengan URL /exec dari Langkah 6.
+        Contoh hasil:
+        API_BASE_URL: "https://script.google.com/macros/s/AKfycb....../exec",
+  - Simpan file.
+
+LANGKAH 8. Tambahkan logo & foto
+  - Masukkan ke folder "assets":
+        logo.png  -> logo Koki Batak (wajib)
+        hero.jpg  -> foto hidangan untuk halaman depan (opsional)
+  - Nama file harus persis (huruf kecil).
+
+================================================================================
+ BAGIAN C — MENG-ONLINE-KAN DI GITHUB PAGES (GRATIS)
+================================================================================
+
+LANGKAH 9. Buat repository
+  - Buka  https://github.com  -> login / daftar.
+  - Klik  New repository.
+        Repository name : koki-batak  (atau nama lain)
+        Pilih           : Public
+  - Klik  Create repository.
+
+LANGKAH 10. Upload file proyek
+  - Di halaman repo, klik:  Add file  ->  Upload files.
+  - Seret SEMUA isi folder "KOKI BATAK" ke sana
+    (index.html, folder css, js, admin, assets, gas, tools, dll.).
+  - Klik  Commit changes.
+
+LANGKAH 11. Aktifkan GitHub Pages
+  - Di repo, klik  Settings  ->  (menu kiri) Pages.
+  - Source : Deploy from a branch
+        Branch : main      Folder : / (root)
+  - Klik  Save. Tunggu sekitar 1 menit.
+
+LANGKAH 12. Alamat website Anda
+  - Situs publik :  https://<username>.github.io/koki-batak/
+  - Panel admin  :  https://<username>.github.io/koki-batak/admin/
+    (ganti <username> dengan username GitHub Anda)
+
+================================================================================
+ BAGIAN D — TES & MULAI MEMAKAI
+================================================================================
+
+LANGKAH 13. Tes koneksi (WAJIB sebelum dipakai)
+  - Buka:  https://<username>.github.io/koki-batak/tools/test-koneksi.html
+  - Tempel URL /exec, lalu jalankan KETIGA tombol tes:
+        Tes GET, Tes POST, Tes Gambar.
+  - Jika semua tampil tanda CENTANG HIJAU  -> aman, lanjut.
+  - Jika Tes GET GAGAL tapi POST OK:
+        buka js/config.js, ubah  USE_JSONP_FOR_GET: false  menjadi  true,
+        lalu upload ulang file config.js ke GitHub.
+  - Jika Tes Gambar gagal: pastikan file di Drive di-share "Anyone with link".
+
+LANGKAH 14. Kelola isi situs lewat panel admin
+  - Buka  /admin/  -> login dengan USERNAME "admin" + password (Langkah 4).
+  - Menu admin:
+        Dashboard  : ringkasan pesanan
+        Pesanan    : lihat & ubah status (Baru->Dikonfirmasi->Diproses->Selesai)
+        Paket      : tambah/edit menu, upload foto, tandai Terlaris/Diskon
+        Galeri     : unggah foto kegiatan
+        Testimoni  : setujui/tolak testimoni masuk
+  - Menu pojok kanan atas (nama Anda):
+        Profil & Ganti Password : ubah password Anda sendiri dari panel
+        Kelola Admin (Owner)    : tambah/edit/nonaktifkan admin lain,
+                                  atur peran Owner (kelola admin) / Staff (konten)
+
+LANGKAH 15. Pengaturan bisnis (WhatsApp, Instagram, TikTok, alamat)
+  - Cara mudah: di panel admin buka menu "PENGATURAN", isi:
+        Nomor WhatsApp Admin  <- PENTING! tujuan chat saat pelanggan memesan.
+                                 Isi nomor admin/usaha (bukan nomor pelanggan).
+        Nama usaha, deskripsi, alamat
+        Teks hero (judul & subjudul halaman depan)
+        Link Instagram, TikTok, Google Maps (embed)
+        Kategori paket (pisahkan dengan koma)
+    Klik "Simpan Pengaturan".
+  - (Alternatif) bisa juga edit langsung di Google Sheet -> tab "Settings",
+    kolom "value" pada baris yang sesuai (mis. wa_admin_number).
+
+  CATATAN soal WhatsApp: nomor yang diketik PELANGGAN hanya muncul di ISI pesan
+  (agar admin tahu harus menghubungi siapa). Tujuan chat selalu ke
+  "Nomor WhatsApp Admin" di Pengaturan di atas.
+
+================================================================================
+ PENTING / SERING DITANYAKAN
+================================================================================
+
+* SETIAP KALI mengubah file "Code.gs":
+    Deploy -> Manage deployments -> klik pensil (Edit) ->
+    Version: New version -> Deploy.
+  (Kalau tidak, perubahan tidak akan aktif di URL yang sama.)
+
+* Data tidak muncul / error di situs:
+    - Pastikan deploy "Who has access" = Anyone.
+    - Jalankan ulang Tes Koneksi (Langkah 13). Jika GET gagal -> aktifkan JSONP.
+
+* Gambar tidak tampil:
+    - Pastikan foto di-share publik. Kode sudah memakai referrerpolicy
+      no-referrer secara otomatis.
+
+* Lupa password admin:
+    - Ulangi Langkah 4 (buat fungsi initPasswordSaya lagi dengan password baru).
+
+* Mau tes dulu di komputer tanpa GitHub?
+    - File tools/test-koneksi.html bisa dibuka langsung untuk cek koneksi API.
+    - Untuk situs penuh, sebaiknya tetap lewat GitHub Pages agar perilaku
+      CORS-nya sama seperti kondisi nyata.
+
+--------------------------------------------------------------------------------
+ Catatan jujur soal gambar:
+ Google secara resmi kurang menyarankan Google Drive sebagai tempat gambar
+ untuk <img>. Pada situs trafik tinggi, gambar Drive KADANG gagal/lambat muncul.
+ Sudah kami mitigasi (referrerpolicy + format thumbnail). Bila nanti bermasalah,
+ alternatifnya menaruh foto langsung di folder "assets" pada repo GitHub.
+--------------------------------------------------------------------------------
+
+Dibuat untuk Koki Batak Catering.
+Stack: GitHub Pages + Google Apps Script + Google Sheets + Google Drive.
+================================================================================

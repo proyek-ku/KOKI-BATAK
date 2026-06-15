@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontak — Koki Batak</title>
+  <meta name="description" content="Hubungi Koki Batak untuk pemesanan catering khas Batak. WhatsApp, alamat, dan media sosial kami." />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body data-page="kontak">
+  <header id="site-nav"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Kontak</span>
+        <h1>Hubungi Koki Batak</h1>
+        <p>Punya pertanyaan atau ingin memesan? Kami siap membantu acara Anda.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container checkout-layout">
+        <div class="card reveal">
+          <h3>Informasi Kontak</h3>
+          <ul class="info-list mt-4" id="contactInfo">
+            <li class="text-muted">Memuat…</li>
+          </ul>
+
+          <h4 class="mt-6" style="font-family:var(--font-body);letter-spacing:.05em;text-transform:uppercase;font-size:.9rem;color:var(--c-ink-soft)">Media Sosial</h4>
+          <div class="social-row" id="contactSocial" style="margin-top:.5rem"></div>
+
+          <a class="btn btn-wa btn-lg btn-block mt-6" id="waCta" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.1 1.5 1.8 1 .9 1.8 1.1 2.1 1.3.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.3.1.1.1.6-.1 1.2z" /></svg>
+            Chat via WhatsApp
+          </a>
+        </div>
+
+        <div class="card reveal" style="padding:0;overflow:hidden;min-height:320px" id="mapWrap">
+          <div class="loader-center" id="mapLoader"><div class="spinner spinner-dark"></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/kontak.js"></script>
+</body>
+</html>

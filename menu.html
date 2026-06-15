@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu &amp; Paket — Koki Batak</title>
+  <meta name="description" content="Daftar lengkap menu dan paket catering khas Batak dari Koki Batak. Filter berdasarkan kategori dan tambahkan ke keranjang." />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body data-page="menu">
+  <header id="site-nav"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Menu &amp; Paket</span>
+        <h1>Pilih Hidangan Favorit Anda</h1>
+        <p>Telusuri paket catering khas Batak kami. Tambahkan ke keranjang, lalu pesan praktis lewat WhatsApp.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="toolbar">
+          <div class="chips" id="categoryChips"></div>
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" /></svg>
+            <input type="search" id="searchInput" placeholder="Cari paket atau menu…" aria-label="Cari paket" />
+          </div>
+        </div>
+        <div id="menuGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/packages.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>
