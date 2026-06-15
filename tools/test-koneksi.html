@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tes Koneksi (Fase 0) — Koki Batak</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #2a211c; }
+    h1 { color: #9e1b1b; }
+    input[type=text] { width: 100%; padding: .6rem; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: .6rem 1rem; border: 0; border-radius: 8px; background: #9e1b1b; color: #fff; cursor: pointer; margin: .3rem .3rem .3rem 0; }
+    .out { background: #f6efe6; border: 1px solid #e7ddd0; border-radius: 8px; padding: .8rem; white-space: pre-wrap; font-family: monospace; font-size: .85rem; margin-top: .5rem; }
+    .ok { color: #2e7d4f; font-weight: bold; }
+    .bad { color: #b3261e; font-weight: bold; }
+    .step { border-left: 4px solid #d4a23a; padding: .5rem 0 .5rem 1rem; margin: 1.5rem 0; }
+    code { background: #eee; padding: 1px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>🔌 Tes Koneksi Fase 0</h1>
+  <p>Halaman ini membuktikan asumsi teknis paling berisiko <strong>sebelum</strong> Anda membangun/men-deploy seluruh situs:
+    apakah GitHub Pages dapat membaca respons GAS (CORS), mengirim POST, dan menampilkan gambar Google Drive.</p>
+  <p><strong>Cara pakai paling sahih:</strong> unggah file ini ke GitHub Pages Anda, lalu buka dari URL <code>*.github.io</code>
+    (bukan dari komputer) agar kondisi CORS-nya nyata.</p>
+
+  <label><strong>URL Web App GAS (akhiran /exec):</strong></label>
+  <input type="text" id="url" placeholder="https://script.google.com/macros/s/AKfycb...../exec" />
+
+  <div class="step">
+    <h3>1) Tes GET (baca data) — CORS read</h3>
+    <button onclick="testGet()">Jalankan Tes GET</button>
+    <div class="out" id="getOut">—</div>
+  </div>
+
+  <div class="step">
+    <h3>2) Tes POST (kirim data, text/plain) — tanpa preflight</h3>
+    <button onclick="testPost()">Jalankan Tes POST</button>
+    <div class="out" id="postOut">—</div>
+  </div>
+
+  <div class="step">
+    <h3>3) Tes Gambar Google Drive (&lt;img&gt; + referrerpolicy)</h3>
+    <p>Masukkan <em>File ID</em> sebuah gambar di Drive yang sudah di-share "Siapa saja yang memiliki link".</p>
+    <input type="text" id="fileId" placeholder="contoh: 1AbC...XyZ (File ID, bukan URL)" />
+    <button onclick="testImg()">Tampilkan Gambar</button>
+    <div id="imgOut" class="out">—</div>
+  </div>
+
+  <p><strong>Interpretasi:</strong> Jika ketiganya ✅ hijau, arsitektur aman — lanjut build/deploy normal.
+    Jika <strong>GET gagal</strong> tapi POST ok, set <code>USE_JSONP_FOR_GET = true</code> di <code>js/config.js</code> (fallback JSONP).
+    Jika <strong>gambar gagal</strong> walau sudah di-share + referrerpolicy, pertimbangkan host gambar lain.</p>
+
+  <script>
+    function u() { return document.getElementById("url").value.trim().replace(/\/$/, ""); }
+
+    function testGet() {
+      var o = document.getElementById("getOut");
+      if (!u()) { o.innerHTML = '<span class="bad">Isi URL dulu.</span>'; return; }
+      o.textContent = "Menghubungi (GET)…";
+      fetch(u() + "?action=ping")
+        .then(function (r) { return r.json(); })
+        .then(function (j) { o.innerHTML = '<span class="ok">✅ GET berhasil & respons terbaca:</span>\n' + JSON.stringify(j, null, 2); })
+        .catch(function (e) { o.innerHTML = '<span class="bad">❌ GET gagal: ' + e.message + '</span>\n(Jika ini error CORS, aktifkan fallback JSONP.)'; });
+    }
+
+    function testPost() {
+      var o = document.getElementById("postOut");
+      if (!u()) { o.innerHTML = '<span class="bad">Isi URL dulu.</span>'; return; }
+      o.textContent = "Mengirim (POST text/plain)…";
+      fetch(u(), {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: "ping" }),
+        redirect: "follow"
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (j) { o.innerHTML = '<span class="ok">✅ POST berhasil & respons terbaca:</span>\n' + JSON.stringify(j, null, 2); })
+        .catch(function (e) { o.innerHTML = '<span class="bad">❌ POST gagal: ' + e.message + '</span>'; });
+    }
+
+    function testImg() {
+      var id = document.getElementById("fileId").value.trim();
+      var o = document.getElementById("imgOut");
+      if (!id) { o.innerHTML = '<span class="bad">Isi File ID dulu.</span>'; return; }
+      var src = "https://drive.google.com/thumbnail?id=" + encodeURIComponent(id) + "&sz=w600";
+      o.innerHTML = "Memuat gambar…\n" + src;
+      var img = new Image();
+      img.referrerPolicy = "no-referrer";
+      img.onload = function () { o.innerHTML = '<span class="ok">✅ Gambar tampil:</span><br>'; o.appendChild(img); };
+      img.onerror = function () { o.innerHTML = '<span class="bad">❌ Gambar gagal (cek sharing & coba host lain).</span>'; };
+      img.style.maxWidth = "300px";
+      img.src = src;
+    }
+  </script>
+</body>
+</html>
