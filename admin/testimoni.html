@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testimoni — Admin Koki Batak</title>
+  <link rel="icon" href="../assets/logo.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>body { background: #f6f4f1; }</style>
+</head>
+<body data-admin-page="testimoni">
+  <div id="adminNav"></div>
+
+  <main class="container-fluid px-3 px-md-4 py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+      <h1 class="h3 mb-0">Moderasi Testimoni</h1>
+      <div class="btn-group btn-group-sm" id="testiFilter" role="group">
+        <button class="btn btn-dark active" data-st="">Semua</button>
+        <button class="btn btn-outline-dark" data-st="pending">Menunggu</button>
+        <button class="btn btn-outline-dark" data-st="approved">Disetujui</button>
+        <button class="btn btn-outline-dark" data-st="rejected">Ditolak</button>
+      </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr><th>Nama</th><th>Rating</th><th>Pesan</th><th>Status</th><th>Tanggal</th><th>Aksi</th></tr>
+            </thead>
+            <tbody id="testiBody"><tr><td colspan="6" class="text-center text-muted py-4">Memuat…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="js/admin-core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/admin-testimoni.js"></script>
+</body>
+</html>
