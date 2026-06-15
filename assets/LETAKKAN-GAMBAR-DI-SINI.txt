@@ -1,0 +1,16 @@
+LETAKKAN FILE GAMBAR BRAND DI FOLDER INI
+=========================================
+
+Wajib / disarankan:
+- logo.png  -> Logo Koki Batak (dipakai di navbar, footer, admin, favicon).
+              Gunakan PNG latar transparan, ukuran ~200x200px.
+- hero.jpg  -> Foto hidangan untuk bagian utama (hero) di beranda. Opsional.
+              Ukuran disarankan ~1200x900px. Jika tidak ada, akan tampil
+              placeholder otomatis.
+
+Catatan:
+- Nama file harus PERSIS seperti di atas (huruf kecil).
+- Foto MENU & GALERI tidak perlu diletakkan di sini — diunggah lewat
+  panel admin dan disimpan otomatis di Google Drive.
+
+File teks ini boleh dihapus setelah gambar ditambahkan.
